@@ -11,5 +11,5 @@ Luego ejecute el archivo [Raytracer.py](/Raytracer.py) dentro de cualquier IDE.
 Si lo ejecuta desde la linea de comandos:
 
 ```bash
-python Engine3D.py
+python Raytracer.py
 ```
