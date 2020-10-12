@@ -4,7 +4,7 @@
 
 ## Como ejecutar el codigo
 
-Descargue el repositorio [Proyecto 2: Ray Tracing](https://github.com/juanferdeleon/DR3-Planes-and-Cubes)
+Descargue el repositorio [Proyecto 2: Ray Tracing](https://github.com/juanferdeleon/Proyecto-2-Ray-Tracing)
 
 Luego ejecute el archivo [Raytracer.py](/Raytracer.py) dentro de cualquier IDE.
 
