@@ -11,50 +11,52 @@ Raytracer Engine
 from gl import *
 from texture import Texture
 from obj import ObjReader
-from sphere import Sphere, Material, PointLight, AmbientLight
+from envmap import Envmap
+from sphere import *
 
 if __name__ == '__main__':
     '''Main Program'''
 
-    snow = Material(diffuse = color(0.87, 0.87, 0.87), spec = 32)
-    buttons = Material(diffuse = color(0.43, 0.43, 0.43 ), spec = 64)
-    smile = Material(diffuse = color(0, 0, 0), spec = 32)
-    carrot = Material(diffuse = color(1, 0.36, 0.22), spec = 16)
-    eye = Material(diffuse = color(0.6, 0.6, 0.6), spec = 128)
+    brick = Material(diffuse = color(0.8, 0.25, 0.25 ), spec = 16)
+    stone = Material(diffuse = color(0.4, 0.4, 0.4 ), spec = 32)
+    mirror = Material(spec = 64, matType = REFLECTIVE)
+    glass = Material(spec = 64, ior = 1.5, matType= TRANSPARENT) 
+
+    boxMat = Material(texture = Texture('box.bmp'))
+
+    # earthMat = Material(texture = Texture('earthDay.bmp'))
 
 
-    width = 1080
-    height = 720
+    width = 512
+    height = 512
     r = Raytracer(width,height)
+    r.glClearColor(0.2, 0.6, 0.8)
+    r.glClear()
 
-    r.pointLight = PointLight(position = V3(-2,2,0), intensity = 1)
+    # r.envmap = Envmap('envmap.bmp')
+
+    # Lights
+    r.pointLights.append( PointLight(position = V3(-4,4,0), intensity = 0.5))
+    # r.dirLight = DirectionalLight(direction = V3(1, -1, -2), intensity = 0.5)
     r.ambientLight = AmbientLight(strength = 0.1)
 
-    # BODY
-    r.scene.append( Sphere(V3(0, 0.80, -5), 0.60, snow) ) #HEAD
-    r.scene.append( Sphere(V3(0, 0,  -5), 0.75, snow) ) # BELLY
-    r.scene.append( Sphere(V3(0, -1, -5), 1, snow) ) # LEGS
-
-    # Buttons
-    r.scene.append( Sphere(V3(0, 0, -2), 0.05, buttons) )
-    r.scene.append( Sphere(V3(0, -0.25, -2), 0.05, buttons) )
-    r.scene.append( Sphere(V3(0, -0.5, -2), 0.05, buttons) )
-
-    # Smile
-    r.scene.append( Sphere(V3(0.045, 0.25, -2), 0.02, smile) )
-    r.scene.append( Sphere(V3(0.1, 0.30, -2), 0.02, smile) )
-    r.scene.append( Sphere(V3(-0.045, 0.25, -2), 0.02, smile) )
-    r.scene.append( Sphere(V3(-0.1, 0.30, -2), 0.02, smile) )
-
-    # Nose
-    r.scene.append( Sphere(V3(0, 0.32, -2), 0.02, carrot) )
-
-    # Eyes
-    r.scene.append( Sphere(V3(0.075, 0.4, -2), 0.04, eye) )
-    r.scene.append( Sphere(V3(-0.075, 0.4, -2), 0.04, eye) )
+    # Objects
+    #r.scene.append( Sphere(V3( 0, 0, -8), 2, brick) )
+    #r.scene.append( Sphere(V3( -0.5, 0.5, -5), 0.25, stone))
+    #r.scene.append( Sphere(V3( 0.25, 0.5, -5), 0.25, stone))
 
 
-    
+    r.scene.append( AABB(V3(0, 0, -5), V3(5, 5, 5) , boxMat, 'room' ) )
+    r.scene.append( AABB(V3(0, -2, -5), V3(1, 1, 1) , boxMat, 'box' ) )
+    r.scene.append( AABB(V3(1, -2, -5.25), V3(1, 1, 1) , boxMat, 'box' ) )
+    r.scene.append( AABB(V3(0.5, -1, -5.5), V3(1, 1, 1) , boxMat, 'box' ) )
+    # r.scene.append( AABB(V3(1.5, 1.5, -5), V3(1, 1, 1) , boxMat ) )
+    # r.scene.append( AABB(V3(-1.5, 0, -5), V3(1, 1, 1) , boxMat ) )
+
+    # r.scene.append( Sphere(V3( 0, 0, -8), 2, earthMat))
+
+
+
     r.rtRender()
 
     r.glFinish('output.bmp')
