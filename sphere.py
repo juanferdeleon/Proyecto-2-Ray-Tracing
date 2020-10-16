@@ -144,6 +144,16 @@ class AABB(object):
 
             # self.planes.append( Plane( sum(position, V3(0,0,halfSizeZ)), V3(0,0,1), material))
             self.planes.append( Plane( sum(position, V3(0,0,-halfSizeZ)), V3(0,0,-1), material))
+        
+        elif (aabb_type == 'basket'):
+            self.planes.append( Plane( sum(position, V3(halfSizeX,0,0)), V3(1,0,0), material))
+            self.planes.append( Plane( sum(position, V3(-halfSizeX,0,0)), V3(-1,0,0), material))
+
+            # self.planes.append( Plane( sum(position, V3(0,halfSizeY,0)), V3(0,1,0), material))
+            self.planes.append( Plane( sum(position, V3(0,-halfSizeY,0)), V3(0,-1,0), material))
+
+            self.planes.append( Plane( sum(position, V3(0,0,halfSizeZ)), V3(0,0,1), material))
+            self.planes.append( Plane( sum(position, V3(0,0,-halfSizeZ)), V3(0,0,-1), material))
 
 
     def ray_intersect(self, orig, dir):
