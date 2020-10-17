@@ -23,6 +23,8 @@ if __name__ == '__main__':
     glass = Material(spec = 64, ior = 1.5, matType= TRANSPARENT) 
 
     boxMat = Material(texture = Texture('./TexturesAndMaterials/wood2.bmp'))
+    woodMat_4 = Material(texture = Texture('./TexturesAndMaterials/wood4.bmp'))
+    woodMat_4_1 = Material(texture = Texture('./TexturesAndMaterials/wood4-1.bmp'))
 
     earthMat = Material(texture = Texture('./TexturesAndMaterials/earthDay.bmp'))
     jupiterMat = Material(texture = Texture('./TexturesAndMaterials/2k_jupiter.bmp'))
@@ -45,15 +47,20 @@ if __name__ == '__main__':
     r.envmap = Envmap('./TexturesAndMaterials/intothewoods.bmp')
 
     # Lights
-    r.pointLights.append( PointLight(position = V3( -3.3,-2.5,-10), intensity = 0.7))
-    r.pointLights.append( PointLight(position = V3( -3.2,-2.5,-9.75), intensity = 0.7))
-    r.dirLight = DirectionalLight(direction = V3(1, -1, -2), intensity = 0.5)
-    r.ambientLight = AmbientLight(strength = 0.1)
+    r.pointLights.append( PointLight(position = V3(-3, -1.225, -10), intensity = 0.25)) # Lamp
+    r.pointLights.append( PointLight(position = V3(-3, -1.225, -11), intensity = 0.07)) # Window Efect
+    r.ambientLight = AmbientLight(strength = 0.35)
 
     # Desk
     r.scene.append( AABB(V3(0, -3, -10), V3(10, 0.1, 5) , boxMat, 'box' ) )
     r.scene.append( AABB(V3(-5, -5.45, -10), V3(0.1, 5, 5) , boxMat, 'box' ) )
     r.scene.append( AABB(V3(5, -5.45, -10), V3(0.1, 5, 5) , boxMat, 'box' ) )
+
+    # Lamp
+    r.scene.append( AABB(V3(-4.75, -1.75, -10), V3(0.5, 2.5, 0.25) , woodMat_4, 'box' ) )
+    r.scene.append( AABB(V3(-3.75, -1, -10), V3(1.75, 0.25, 0.25) , woodMat_4_1, 'box' ) )
+    r.scene.append( AABB(V3(-3, -1.2, -10), V3(1, 0.2, 1) , woodMat_4_1, 'lamp' ) )
+
 
     # # Box of balls
     r.scene.append( AABB(V3(-3, -2.75, -10), V3(1.5, 1, 1) , glass, 'basket' ) )
@@ -70,7 +77,12 @@ if __name__ == '__main__':
     r.scene.append( AABB(V3(4, -2, -10), V3(0.45, 1.75, 1.5) , bookMat_3, 'box' ) )
     r.scene.append( AABB(V3(4.5, -2, -10), V3(0.45, 1.75, 1.5) , bookMat_4, 'box' ) )
 
-    r.scene.append( AABB(V3(0,0,-12.5), V3(15,10,10), concretewallMat, 'room') )
+    # Room
+    r.scene.append( AABB(V3(0,0,-12), V3(15,10,10), concretewallMat, 'room') )
+    r.scene.append( AABB(V3(-5.58,0,-17), V3(3.75,10,0.2), concretewallMat, 'box') )
+    r.scene.append( AABB(V3(5.58,0,-17), V3(3.75,10,0.2), concretewallMat, 'box') )
+    r.scene.append( AABB(V3(0,-3.5,-17), V3(7.30,3,0.2), concretewallMat, 'box') )
+    r.scene.append( AABB(V3(0,1.5,-17), V3(7.30,7,0.2), glass, 'box') ) # Window
 
     r.rtRender()
 
