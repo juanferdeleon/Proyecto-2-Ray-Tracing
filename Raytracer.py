@@ -22,7 +22,7 @@ if __name__ == '__main__':
     mirror = Material(spec = 64, matType = REFLECTIVE)
     glass = Material(spec = 64, ior = 1.5, matType= TRANSPARENT) 
 
-    boxMat = Material(texture = Texture('./TexturesAndMaterials/wood2.bmp'))
+    deskMat = Material(texture = Texture('./TexturesAndMaterials/wood2.bmp'))
     woodMat_4 = Material(texture = Texture('./TexturesAndMaterials/wood4.bmp'))
     woodMat_4_1 = Material(texture = Texture('./TexturesAndMaterials/wood4-1.bmp'))
 
@@ -38,8 +38,8 @@ if __name__ == '__main__':
     bookMat_4 = Material(texture = Texture('./TexturesAndMaterials/book4.bmp'))
 
 
-    width = 500
-    height = 500
+    width = 1920
+    height = 1080
     r = Raytracer(width,height)
     r.glClearColor(0.2, 0.6, 0.8)
     r.glClear()
@@ -52,9 +52,9 @@ if __name__ == '__main__':
     r.ambientLight = AmbientLight(strength = 0.35)
 
     # Desk
-    r.scene.append( AABB(V3(0, -3, -10), V3(10, 0.1, 5) , boxMat, 'box' ) )
-    r.scene.append( AABB(V3(-5, -5.45, -10), V3(0.1, 5, 5) , boxMat, 'box' ) )
-    r.scene.append( AABB(V3(5, -5.45, -10), V3(0.1, 5, 5) , boxMat, 'box' ) )
+    r.scene.append( AABB(V3(0, -3, -10), V3(10, 0.1, 5) , deskMat, 'box' ) )
+    r.scene.append( AABB(V3(-5, -5.45, -10), V3(0.1, 5, 5) , deskMat, 'box' ) )
+    r.scene.append( AABB(V3(5, -5.45, -10), V3(0.1, 5, 5) , deskMat, 'box' ) )
 
     # Lamp
     r.scene.append( AABB(V3(-4.75, -1.75, -10), V3(0.5, 2.5, 0.25) , woodMat_4, 'box' ) )
